@@ -6,6 +6,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import PostList from '../components/PostList.astro';
 import {type Lang, localePath, t} from '../i18n';
 import {person} from '../lib/schema';
+import {getPostsFor} from '../lib/substack';
 
 interface Props {
   lang: Lang;
@@ -19,6 +20,8 @@ const featured = ['dateno', 'dataportals-registry', 'infoculture', 'opendata-am'
 const projects = (await getCollection('projects', (p) => featured.includes(p.id))).sort(
   (a, b) => featured.indexOf(a.id) - featured.indexOf(b.id),
 );
+// The English home page skips the newsletter block when there are no English issues.
+const hasPosts = (await getPostsFor(lang)).length > 0;
 const numbers = [s.numbers.since, s.numbers.dateno, s.numbers.registry, s.numbers.telegram];
 ---
 
@@ -79,13 +82,19 @@ const numbers = [s.numbers.since, s.numbers.dateno, s.numbers.registry, s.number
     </div>
   </section>
 
-  <section class="section container" aria-labelledby="writing">
-    <div class="section-head">
-      <h2 id="writing">{s.home.writingHeading}</h2>
-      <a class="more" href={localePath(lang, '/writing/')}>{s.home.writingAll}</a>
-    </div>
-    <PostList lang={lang} limit={3} />
-  </section>
+  {
+    hasPosts && (
+      <section class="section container" aria-labelledby="writing">
+        <div class="section-head">
+          <h2 id="writing">{s.home.writingHeading}</h2>
+          <a class="more" href={localePath(lang, '/writing/')}>
+            {s.home.writingAll}
+          </a>
+        </div>
+        <PostList lang={lang} limit={3} />
+      </section>
+    )
+  }
 
   <section class="section container" aria-labelledby="contact">
     <h2 id="contact">{s.home.contactHeading}</h2>

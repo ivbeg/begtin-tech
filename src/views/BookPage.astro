@@ -22,17 +22,22 @@ const files = await Promise.all(
   }),
 );
 
-// The citation names the book in its own language: that is how it appears in libraries.
-const ownTitle = b.title[b.language];
-const ownSubtitle = b.subtitle[b.language];
-const author = b.language === 'ru' ? 'Бегтин И.' : 'Begtin, I.';
-const citation = `${author} ${ownTitle}: ${ownSubtitle.replace(/^./, (c) => c.toLowerCase())}. — ${b.year}. — URL: ${b.site}`;
+// The citation follows the page language: the English page gives an English reference
+// (APA-style) and says the book itself is in another language; the Russian page gives a GOST-style one.
+const subtitle = pick(b.subtitle, lang);
+const edition = pick(b.edition, lang);
+const inOtherLanguage = b.language !== lang ? s.langNames[b.language] : undefined;
+const citation =
+  lang === 'ru'
+    ? `Бегтин И. ${title}: ${subtitle.replace(/^./, (c) => c.toLowerCase())}. — ${edition ? `Редакция: ${edition}` : b.year}. — URL: ${b.site}`
+    : `Begtin, I. (${b.year}). ${title}: ${subtitle}${edition ? ` (${edition} ed.)` : ''}.${inOtherLanguage ? ` In ${inOtherLanguage}.` : ''} ${b.site}`;
+const note = [lang === 'en' && inOtherLanguage && `In ${inOtherLanguage}`, b.license?.name].filter(Boolean).join('. ');
 const bibtex = `@book{begtin${b.year}${book.id.replace(/[^a-z]/g, '')},
-  author = {${b.language === 'ru' ? 'Бегтин, Иван' : 'Begtin, Ivan'}},
-  title = {${ownTitle}: ${ownSubtitle}},
-  year = {${b.year}},
+  author = {${lang === 'ru' ? 'Бегтин, Иван' : 'Begtin, Ivan'}},
+  title = {${title}: ${subtitle}},
+  year = {${b.year}},${edition ? `\n  edition = {${edition}},` : ''}
   url = {${b.site}},
-  language = {${b.language === 'ru' ? 'russian' : 'english'}}${b.license ? `,\n  note = {${b.license.name}}` : ''}
+  language = {${b.language === 'ru' ? 'russian' : 'english'}}${note ? `,\n  note = {${note}}` : ''}
 }`;
 
 const facts = [

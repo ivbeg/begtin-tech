@@ -3,7 +3,9 @@ export const en = {
   siteDescription:
     'Ivan Begtin: open data, data engineering and digital preservation. Founder of Dateno, Infoculture and Open Data Armenia. Books, projects and writing.',
   skipToContent: 'Skip to content',
-  switchLanguage: 'Читать по-русски',
+  // Language codes in Latin script, so each version stays in its own language.
+  switchLanguage: 'RU',
+  switchLanguageTitle: 'Russian version',
 
   nav: {
     label: 'Main menu',
@@ -114,6 +116,8 @@ export const en = {
     latest: 'Latest issues',
     feedUnavailable: 'The newsletter feed could not be loaded during the last build.',
     inRussian: 'in Russian',
+    onlyInRussian: 'Recent issues are written in Russian and are listed on the',
+    russianVersion: 'Russian version of this page',
   },
 
   footer: {

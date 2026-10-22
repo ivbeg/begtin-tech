@@ -2,28 +2,33 @@
 import Base from '../layouts/Base.astro';
 import {localePath, t} from '../i18n';
 
-// GitHub Pages serves one 404.html for every language: the page carries both.
-const en = t('en').notFound;
-const ru = t('ru').notFound;
+// GitHub Pages serves one 404.html for every address. It is English; under /ru/ a script
+// swaps in the Russian text, so each version of the site stays in its own language.
+const en = t('en');
+const ru = t('ru');
 ---
 
-<Base lang="en" path="/404/" title={en.title}>
-  <div class="container page-head">
-    <h1>{en.title}</h1>
-    <p>{en.text}</p>
-    <p><a href={localePath('en', '/')}>{en.home}</a> · <a href={localePath('en', '/books/')}>{t('en').nav.books}</a></p>
-    <hr />
-    <h2 lang="ru">{ru.title}</h2>
-    <p lang="ru">{ru.text}</p>
-    <p lang="ru"><a href={localePath('ru', '/')}>{ru.home}</a> · <a href={localePath('ru', '/books/')}>{t('ru').nav.books}</a></p>
+<Base lang="en" path="/404/" title={en.notFound.title}>
+  <div class="container page-head" data-lang="en">
+    <h1>{en.notFound.title}</h1>
+    <p>{en.notFound.text}</p>
+    <p>
+      <a href={localePath('en', '/')}>{en.notFound.home}</a> · <a href={localePath('en', '/books/')}>{en.nav.books}</a>
+    </p>
   </div>
+  <div class="container page-head" data-lang="ru" lang="ru" hidden>
+    <h1>{ru.notFound.title}</h1>
+    <p>{ru.notFound.text}</p>
+    <p>
+      <a href={localePath('ru', '/')}>{ru.notFound.home}</a> · <a href={localePath('ru', '/books/')}>{ru.nav.books}</a>
+    </p>
+  </div>
+  <script is:inline define:vars={{ruTitle: `${ru.notFound.title} — ${ru.siteName}`}}>
+    if (location.pathname.startsWith('/ru/')) {
+      document.querySelector('[data-lang="en"]').hidden = true;
+      document.querySelector('[data-lang="ru"]').hidden = false;
+      document.documentElement.lang = 'ru';
+      document.title = ruTitle;
+    }
+  </script>
 </Base>
-
-<style>
-  hr {
-    border: 0;
-    border-top: 1px solid var(--border);
-    margin: 2rem 0;
-    max-width: var(--measure);
-  }
-</style>

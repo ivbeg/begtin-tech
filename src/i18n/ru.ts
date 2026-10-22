@@ -6,7 +6,8 @@ export const ru: typeof en = {
   siteDescription:
     'Иван Бегтин: открытые данные, инженерия данных и цифровое сохранение. Основатель Dateno, Инфокультуры и «Открытых данных Армении». Книги, проекты и тексты.',
   skipToContent: 'К содержанию',
-  switchLanguage: 'Read in English',
+  switchLanguage: 'EN',
+  switchLanguageTitle: 'Английская версия',
 
   nav: {
     label: 'Основное меню',
@@ -117,6 +118,8 @@ export const ru: typeof en = {
     latest: 'Последние выпуски',
     feedUnavailable: 'Ленту рассылки не удалось загрузить при последней сборке сайта.',
     inRussian: 'на русском',
+    onlyInRussian: 'Свежие выпуски перечислены на',
+    russianVersion: 'русской версии страницы',
   },
 
   footer: {

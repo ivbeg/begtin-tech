@@ -21,6 +21,12 @@ export function getPosts(): Promise<Post[]> {
   return cache;
 }
 
+// English pages list only English issues, so each version of the site stays in one language.
+export async function getPostsFor(lang: 'en' | 'ru'): Promise<Post[]> {
+  const posts = await getPosts();
+  return lang === 'ru' ? posts : posts.filter((post) => post.lang === lang);
+}
+
 async function load(): Promise<Post[]> {
   try {
     const response = await fetch(FEED_URL, {signal: AbortSignal.timeout(15_000)});

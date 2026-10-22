@@ -1,6 +1,6 @@
 ---
-import {type Lang, formatDate, t} from '../i18n';
-import {SUBSTACK_URL, getPosts} from '../lib/substack';
+import {type Lang, formatDate, localePath, t} from '../i18n';
+import {SUBSTACK_URL, getPosts, getPostsFor} from '../lib/substack';
 
 interface Props {
   lang: Lang;
@@ -9,7 +9,8 @@ interface Props {
 
 const {lang, limit = 5} = Astro.props;
 const s = t(lang).writing;
-const posts = (await getPosts()).slice(0, limit);
+const feedLoaded = (await getPosts()).length > 0;
+const posts = (await getPostsFor(lang)).slice(0, limit);
 ---
 
 {
@@ -33,6 +34,10 @@ const posts = (await getPosts()).slice(0, limit);
         </li>
       ))}
     </ol>
+  ) : feedLoaded ? (
+    <p class="muted">
+      {s.onlyInRussian} <a href={localePath('ru', '/writing/')}>{s.russianVersion}</a>.
+    </p>
   ) : (
     <p class="muted">
       {s.feedUnavailable} <a href={SUBSTACK_URL}>begtin.substack.com</a>
