@@ -1,0 +1,162 @@
+---
+import {getCollection} from 'astro:content';
+import Base from '../layouts/Base.astro';
+import {type Lang, pick, t} from '../i18n';
+import {EMAIL, profiles} from '../lib/profiles';
+import {person} from '../lib/schema';
+
+interface Props {
+  lang: Lang;
+}
+
+const {lang} = Astro.props;
+const s = t(lang);
+const timeline = (await getCollection('timeline')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base lang={lang} path="/about/" title={s.about.title} description={s.about.description} type="profile" jsonLd={person(lang)}>
+  <div class="container">
+    <header class="page-head">
+      <h1>{s.about.title}</h1>
+    </header>
+
+    <div class="prose">
+      {s.about.intro.map((p) => <p>{p}</p>)}
+    </div>
+
+    <section class="section" aria-labelledby="expertise">
+      <h2 id="expertise">{s.about.expertiseHeading}</h2>
+      <ul class="expertise">
+        {s.about.expertise.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="career">
+      <h2 id="career">{s.about.timelineHeading}</h2>
+      <ol class="timeline">
+        {
+          timeline.map(({data: item}) => (
+            <li>
+              <span class="years">{item.years}</span>
+              <div>
+                <p class="role">{pick(item.title, lang)}</p>
+                {item.org && <p class="org">{pick(item.org, lang)}</p>}
+                {item.summary && <p class="muted small">{pick(item.summary, lang)}</p>}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="section" aria-labelledby="bio">
+      <h2 id="bio">{s.about.bioHeading}</h2>
+      <p class="small muted">{s.about.bioNote}</p>
+      <blockquote class="bio">{s.about.bio}</blockquote>
+    </section>
+
+    <section class="section" aria-labelledby="profiles">
+      <h2 id="profiles">{s.about.profilesHeading}</h2>
+      <ul class="profiles">
+        <li>
+          <span class="muted">Email</span>
+          <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        </li>
+        {
+          profiles.map((p) => (
+            <li>
+              <span class="muted">{p.label}</span>
+              <a href={p.url} rel="me">
+                {p.handle}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .expertise {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .expertise li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.95rem;
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: var(--measure);
+  }
+
+  .timeline li {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .timeline p {
+    margin: 0;
+  }
+
+  .years {
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    font-size: 0.95rem;
+    padding-top: 0.1rem;
+  }
+
+  .role {
+    font-weight: 600;
+  }
+
+  .org {
+    color: var(--muted);
+  }
+
+  .bio {
+    margin: 0;
+    max-width: var(--measure);
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  .profiles {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: var(--measure);
+  }
+
+  .profiles li {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 1rem;
+    padding: 0.4rem 0;
+  }
+
+  @media (max-width: 480px) {
+    .timeline li,
+    .profiles li {
+      grid-template-columns: 1fr;
+      gap: 0.1rem;
+    }
+  }
+</style>

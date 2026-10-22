@@ -1,0 +1,26 @@
+---
+import {getCollection} from 'astro:content';
+import Base from '../layouts/Base.astro';
+import BookCard from '../components/BookCard.astro';
+import {type Lang, t} from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const {lang} = Astro.props;
+const s = t(lang).books;
+const books = (await getCollection('books')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base lang={lang} path="/books/" title={s.title} description={s.description}>
+  <div class="container">
+    <header class="page-head">
+      <h1>{s.title}</h1>
+      <p>{s.intro}</p>
+    </header>
+    <div class="grid">
+      {books.map((book) => <BookCard lang={lang} book={book} />)}
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,226 @@
+---
+import '../styles/global.css';
+import {type Lang, localePath, locales, ogLocales, t} from '../i18n';
+import {EMAIL, profiles} from '../lib/profiles';
+
+interface Props {
+  lang: Lang;
+  // Path without the language prefix: '/books/'. Gives the canonical URL and the hreflang pair.
+  path: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'profile' | 'book';
+  jsonLd?: object | object[];
+}
+
+const {lang, path, title, description, image = '/img/og.png', type = 'website', jsonLd} = Astro.props;
+const s = t(lang);
+const other: Lang = lang === 'en' ? 'ru' : 'en';
+const site = Astro.site!;
+
+const fullTitle = title ? `${title} — ${s.siteName}` : `${s.siteName} — ${s.home.tagline}`;
+const desc = description ?? s.siteDescription;
+const canonical = new URL(localePath(lang, path), site).href;
+const imageUrl = new URL(image, site).href;
+
+const nav = [
+  {href: '/', label: s.nav.home},
+  {href: '/about/', label: s.nav.about},
+  {href: '/books/', label: s.nav.books},
+  {href: '/projects/', label: s.nav.projects},
+  {href: '/writing/', label: s.nav.writing},
+];
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    {locales.map((l) => <link rel="alternate" hreflang={l} href={new URL(localePath(l, path), site).href} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(path, site).href} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="author" content={s.siteName} />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={s.siteName} />
+    <meta property="og:title" content={title ?? s.siteName} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:locale" content={ogLocales[lang]} />
+    <meta property="og:locale:alternate" content={ogLocales[other]} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{s.skipToContent}</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href={localePath(lang, '/')}>{s.siteName}</a>
+        <nav aria-label={s.nav.label}>
+          <ul>
+            {
+              nav.map((item) => (
+                <li>
+                  <a href={localePath(lang, item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <a class="lang-switch" href={localePath(other, path)} hreflang={other} lang={other}>
+          {s.switchLanguage}
+        </a>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <p class="footer-name">{s.siteName}</p>
+          <p>
+            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+          </p>
+        </div>
+        <ul class="footer-links">
+          {
+            profiles.map((p) => (
+              <li>
+                <a href={p.url} rel="me">
+                  {p.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="small muted footer-legal">
+          © {year} {s.siteName}. {s.footer.builtWith}
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+  }
+
+  .brand {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  nav {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0.25rem 0;
+    display: inline-block;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav a:hover {
+    color: var(--text);
+  }
+
+  nav a[aria-current='page'] {
+    color: var(--text);
+    border-bottom-color: var(--accent);
+  }
+
+  .lang-switch {
+    margin-left: auto;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 760px) {
+    nav {
+      order: 0;
+      flex-basis: auto;
+    }
+  }
+
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0 2.5rem;
+    font-size: 0.95rem;
+  }
+
+  .footer-inner {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .footer-inner p {
+    margin: 0;
+  }
+
+  .footer-name {
+    font-family: var(--font-serif);
+    font-weight: 700;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (min-width: 760px) {
+    .footer-inner {
+      grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+
+    .footer-legal {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

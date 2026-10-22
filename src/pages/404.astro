@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import {localePath, t} from '../i18n';
+
+// GitHub Pages serves one 404.html for every language: the page carries both.
+const en = t('en').notFound;
+const ru = t('ru').notFound;
+---
+
+<Base lang="en" path="/404/" title={en.title}>
+  <div class="container page-head">
+    <h1>{en.title}</h1>
+    <p>{en.text}</p>
+    <p><a href={localePath('en', '/')}>{en.home}</a> · <a href={localePath('en', '/books/')}>{t('en').nav.books}</a></p>
+    <hr />
+    <h2 lang="ru">{ru.title}</h2>
+    <p lang="ru">{ru.text}</p>
+    <p lang="ru"><a href={localePath('ru', '/')}>{ru.home}</a> · <a href={localePath('ru', '/books/')}>{t('ru').nav.books}</a></p>
+  </div>
+</Base>
+
+<style>
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+    max-width: var(--measure);
+  }
+</style>

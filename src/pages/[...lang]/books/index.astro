@@ -1,0 +1,8 @@
+---
+import BooksPage from '../../../views/BooksPage.astro';
+import {langPaths} from '../../../i18n';
+
+export const getStaticPaths = langPaths;
+---
+
+<BooksPage {...Astro.props} />

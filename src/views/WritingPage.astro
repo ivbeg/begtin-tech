@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import {type Lang, t} from '../i18n';
+import {SUBSTACK_URL} from '../lib/substack';
+
+interface Props {
+  lang: Lang;
+}
+
+const {lang} = Astro.props;
+const s = t(lang).writing;
+const channels = [
+  {name: s.telegramName, handle: 't.me/begtin', text: s.telegramText, url: 'https://t.me/begtin', action: s.open},
+  {name: s.substackName, handle: 'begtin.substack.com', text: s.substackText, url: SUBSTACK_URL, action: s.subscribe},
+];
+---
+
+<Base lang={lang} path="/writing/" title={s.title} description={s.description}>
+  <div class="container">
+    <header class="page-head">
+      <h1>{s.title}</h1>
+      <p>{s.intro}</p>
+    </header>
+
+    <div class="grid">
+      {
+        channels.map((c) => (
+          <article class="card">
+            <h2 class="channel">{c.name}</h2>
+            <p class="meta">
+              {c.handle}
+              {lang === 'en' && <span class="tag">{s.inRussian}</span>}
+            </p>
+            <p>{c.text}</p>
+            <a class="button" href={c.url}>
+              {c.action}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <section class="section" aria-labelledby="latest">
+      <h2 id="latest">{s.latest}</h2>
+      <PostList lang={lang} limit={10} />
+    </section>
+  </div>
+</Base>
+
+<style>
+  .channel {
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .meta .tag {
+    margin-left: 0.4rem;
+  }
+</style>

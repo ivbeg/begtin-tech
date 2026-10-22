@@ -1,0 +1,272 @@
+# Projects shown on /projects/, grouped by `group`, sorted by `order` inside a group.
+# Groups: discovery, organizations, government, preservation, tools (titles in src/i18n).
+# Numbers in summaries carry a date: they change, the date tells the reader how old they are.
+
+# --- Data discovery ---
+
+- id: dateno
+  group: discovery
+  order: 1
+  name: {en: Dateno, ru: Dateno}
+  role: {en: Founder and CTO, ru: Основатель и технический директор}
+  years: 2024–
+  url: https://dateno.io/
+  repo: https://github.com/datenoio
+  summary:
+    en: >-
+      A search engine for datasets. It learns each catalog's platform and API addresses from the
+      registry of data catalogs and collects dataset descriptions through them: 22 million
+      datasets from 5,236 sources as of October 2026.
+    ru: >-
+      Поисковик по наборам данных. Он узнаёт из реестра каталогов платформу каталога и адреса его
+      API и по ним собирает описания наборов: 22 миллиона наборов из 5 236 источников на октябрь
+      2026 года.
+
+- id: dataportals-registry
+  group: discovery
+  order: 2
+  name: {en: Registry of data catalogs, ru: Реестр каталогов данных}
+  role: {en: Creator and maintainer, ru: Автор и ведущий}
+  years: 2023–
+  url: https://datenoio.github.io/dataportals-registry/
+  repo: https://github.com/datenoio/dataportals-registry
+  summary:
+    en: >-
+      An open registry of data catalogs of the whole world, started as Common Data Index:
+      43,614 catalogs and 790 platforms in release 1.27.0 of October 2026.
+    ru: >-
+      Открытый реестр каталогов данных всего мира, начатый как Common Data Index: 43 614 каталогов
+      и 790 платформ в выпуске 1.27.0 от октября 2026 года.
+
+- id: datacatalogs-ru
+  group: discovery
+  order: 3
+  name: {en: datacatalogs.ru, ru: datacatalogs.ru}
+  years: 2021–
+  url: https://datacatalogs.ru/
+  summary:
+    en: A list of data catalogs of Russia by Infoculture. It had 245 entries at launch in November 2021.
+    ru: Перечень каталогов данных России от Инфокультуры. При запуске в ноябре 2021 года в нём было 245 записей.
+
+# --- Organizations ---
+
+- id: infoculture
+  group: organizations
+  order: 1
+  name: {en: Infoculture, ru: Инфокультура}
+  role: {en: Founder and director, ru: Основатель и директор}
+  years: 2012–
+  url: https://infoculture.ru/
+  repo: https://github.com/infoculture
+  summary:
+    en: >-
+      Informational Culture, a non-profit for open government and open data. Founded in March 2012
+      by the founders of the Apps4Russia contest. Runs open databases, the National Digital
+      Archive and Open Data Day in Moscow.
+    ru: >-
+      АНО «Информационная культура» — некоммерческая организация, которая занимается открытостью
+      государства и открытыми данными. Создана в марте 2012 года основателями конкурса
+      Apps4Russia. Ведёт открытые базы данных, Национальный цифровой архив и День открытых данных
+      в Москве.
+
+- id: opendata-am
+  group: organizations
+  order: 2
+  name: {en: Open Data Armenia, ru: Открытые данные Армении}
+  role: {en: Co-founder, ru: Сооснователь}
+  url: https://opendata.am/
+  summary:
+    en: A community project that collects and publishes open data about Armenia.
+    ru: Общественный проект, который собирает и публикует открытые данные об Армении.
+
+- id: apicrafter
+  group: organizations
+  order: 3
+  name: {en: APICrafter, ru: APICrafter}
+  role: {en: Founder, ru: Основатель}
+  url: https://apicrafter.ru/
+  repo: https://github.com/apicrafter
+  summary:
+    en: Data APIs and tools for understanding data, including metacrafter for detecting what table columns contain.
+    ru: API к данным и инструменты для их разбора, в том числе metacrafter, который определяет, что лежит в колонках таблиц.
+
+# --- Open government and public spending ---
+
+- id: spending-gov
+  group: government
+  order: 1
+  name: {en: Public spending portal, ru: Портал «Госрасходы»}
+  role:
+    en: Head of the open data project area, Accounts Chamber of Russia
+    ru: Руководитель проектного направления «Открытые данные» Счётной палаты России
+  years: 2019–2021
+  summary:
+    en: >-
+      spending.gov.ru: contracts, subsidies and national project spending, released as open data
+      and through an API. A team of six built it in four and a half months; it launched in
+      November 2019.
+    ru: >-
+      spending.gov.ru: контракты, субсидии и расходы на национальные проекты, открытыми данными и
+      через API. Команда из шести человек сделала портал за четыре с половиной месяца, его
+      запустили в ноябре 2019 года.
+
+- id: clearspending
+  group: government
+  order: 2
+  name: {en: Clearspending, ru: Госзатраты}
+  url: https://clearspending.ru/
+  summary:
+    en: An open database of government contracts in Russia, an Infoculture project.
+    ru: Открытая база государственных контрактов России, проект Инфокультуры.
+
+- id: hubofdata
+  group: government
+  order: 3
+  name: {en: Hub of Open Data, ru: Хаб открытых данных}
+  years: 2010–2011
+  url: https://hubofdata.ru/
+  summary:
+    en: A community data catalog on CKAN, launched before the government open data portals in Russia.
+    ru: Общественный каталог данных на CKAN, появившийся раньше государственных порталов открытых данных в России.
+
+- id: ngodata
+  group: government
+  order: 4
+  name: {en: NGO Data, ru: Данные НКО}
+  url: https://ngodata.ru/
+  summary:
+    en: An open data portal about non-profit organizations, run by Infoculture.
+    ru: Портал открытых данных о некоммерческих организациях, проект Инфокультуры.
+
+- id: opengovdata
+  group: government
+  order: 5
+  name: {en: OpenGovData.ru, ru: «Государство и его информация»}
+  years: 2009–2015
+  repo: https://github.com/ivbeg/opengovdataru
+  summary:
+    en: News and a knowledge base about open government data in Russia.
+    ru: Новости и база знаний об открытых государственных данных в России.
+
+- id: apps4russia
+  group: government
+  order: 6
+  name: {en: Apps4Russia, ru: Apps4Russia}
+  role: {en: Co-founder, ru: Сооснователь}
+  years: 2010–
+  summary:
+    en: A contest where developers built applications on government data.
+    ru: Конкурс, на котором разработчики делали приложения на государственных данных.
+
+- id: opendataday
+  group: government
+  order: 7
+  name: {en: Open Data Day in Moscow, ru: День открытых данных в Москве}
+  url: https://opendataday.ru/
+  summary:
+    en: An annual Infoculture event, part of the International Open Data Day.
+    ru: Ежегодное событие Инфокультуры, часть международного Дня открытых данных.
+
+# --- Digital preservation ---
+
+- id: ruarxive
+  group: preservation
+  order: 1
+  name: {en: National Digital Archive, ru: Национальный цифровой архив}
+  years: 2017–
+  url: https://ruarxive.org/
+  repo: https://github.com/ruarxive
+  summary:
+    en: >-
+      Saves websites, Telegram channels and open data at risk of disappearing, mostly
+      government ones, and makes the archives open. Archived open data portals in 2022 and the
+      Rosstat and EMISS statistics sites in 2025.
+    ru: >-
+      Сохраняет сайты, Telegram-каналы и открытые данные, которым грозит исчезновение, прежде
+      всего государственные, и делает архивы открытыми. В 2022 году архивировал порталы открытых
+      данных, в 2025 году — сайты Росстата и систему ЕМИСС.
+
+- id: apibackuper
+  group: preservation
+  order: 2
+  name: {en: apibackuper, ru: apibackuper}
+  repo: https://github.com/ruarxive/apibackuper
+  summary:
+    en: Backs up data that is only available page by page through an API.
+    ru: Сохраняет данные, которые отдаются только постранично через API.
+
+# --- Open-source tools ---
+
+- id: undatum
+  group: tools
+  order: 1
+  name: {en: undatum, ru: undatum}
+  repo: https://github.com/datenoio/undatum
+  summary:
+    en: A command-line tool for data files in CSV, NDJSON, XML and other formats.
+    ru: 'Обработка файлов данных из командной строки: CSV, NDJSON, XML и другие форматы.'
+
+- id: metacrafter
+  group: tools
+  order: 2
+  name: {en: metacrafter, ru: metacrafter}
+  repo: https://github.com/apicrafter/metacrafter
+  summary:
+    en: Detects what table columns contain, such as identifiers, codes and personal data.
+    ru: 'Определяет, что лежит в колонках таблицы: идентификаторы, коды, персональные данные.'
+
+- id: filerepack
+  group: tools
+  order: 3
+  name: {en: filerepack, ru: filerepack}
+  url: https://ivbeg.github.io/filerepack/
+  repo: https://github.com/ivbeg/filerepack
+  summary:
+    en: Lossless-first recompression of Office documents, archives, images, PDFs and data files.
+    ru: Пересжатие документов Office, архивов, изображений, PDF и файлов данных, по возможности без потерь.
+
+- id: newsworker
+  group: tools
+  order: 4
+  name: {en: newsworker, ru: newsworker}
+  repo: https://github.com/ivbeg/newsworker
+  summary:
+    en: Finds and extracts news feeds from websites that have no RSS or Atom.
+    ru: Находит и извлекает ленты новостей с сайтов, у которых нет RSS или Atom.
+
+- id: qddate
+  group: tools
+  order: 5
+  name: {en: qddate, ru: qddate}
+  repo: https://github.com/ivbeg/qddate
+  summary:
+    en: A Python library that parses dates from HTML very fast.
+    ru: Библиотека на Python для очень быстрого разбора дат в HTML.
+
+- id: docx2csv
+  group: tools
+  order: 6
+  name: {en: docx2csv, ru: docx2csv}
+  repo: https://github.com/ivbeg/docx2csv
+  summary:
+    en: Extracts tables from .docx files and saves them as CSV or XLS.
+    ru: Извлекает таблицы из файлов .docx и сохраняет их в CSV или XLS.
+
+- id: readability
+  group: tools
+  order: 7
+  name: {en: Readability for Russian, ru: Понятный русский язык}
+  years: 2014
+  repo: https://github.com/ivbeg/readability.io
+  summary:
+    en: Readability formulas adapted to Russian, used to check how plain official texts are.
+    ru: Формулы удобочитаемости, адаптированные к русскому языку, — для проверки понятности официальных текстов.
+
+- id: awesome-status-pages
+  group: tools
+  order: 8
+  name: {en: awesome-status-pages, ru: awesome-status-pages}
+  repo: https://github.com/ivbeg/awesome-status-pages
+  summary:
+    en: A curated list of open-source status page software, services and public status pages.
+    ru: Подборка программ и сервисов для страниц статуса и публичных страниц статуса крупных компаний.

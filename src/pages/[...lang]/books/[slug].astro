@@ -1,0 +1,14 @@
+---
+import {getCollection} from 'astro:content';
+import BookPage from '../../../views/BookPage.astro';
+import {langPaths} from '../../../i18n';
+
+export async function getStaticPaths() {
+  const books = await getCollection('books');
+  return langPaths().flatMap(({params, props}) =>
+    books.map((book) => ({params: {...params, slug: book.id}, props: {...props, book}})),
+  );
+}
+---
+
+<BookPage {...Astro.props} />

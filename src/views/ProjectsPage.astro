@@ -1,0 +1,53 @@
+---
+import {getCollection} from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import {type Lang, t} from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const {lang} = Astro.props;
+const s = t(lang).projects;
+const all = await getCollection('projects');
+const groups = (Object.keys(s.groups) as (keyof typeof s.groups)[]).map((group) => ({
+  id: group,
+  title: s.groups[group],
+  items: all.filter((p) => p.data.group === group).sort((a, b) => a.data.order - b.data.order),
+}));
+---
+
+<Base lang={lang} path="/projects/" title={s.title} description={s.description}>
+  <div class="container">
+    <header class="page-head">
+      <h1>{s.title}</h1>
+      <p>{s.intro}</p>
+      <nav class="toc" aria-label={s.title}>
+        {groups.map((g) => <a href={`#${g.id}`}>{g.title}</a>)}
+      </nav>
+    </header>
+
+    {
+      groups.map((g) => (
+        <section class="section" aria-labelledby={g.id}>
+          <h2 id={g.id}>{g.title}</h2>
+          <div class="grid">
+            {g.items.map((project) => (
+              <ProjectCard lang={lang} project={project} />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    font-size: 0.95rem;
+  }
+</style>

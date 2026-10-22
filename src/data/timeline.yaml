@@ -1,0 +1,61 @@
+# Career on /about/, newest first (`order` ascending).
+
+- id: dateno
+  order: 1
+  years: 2024–
+  title: {en: Founder and CTO, ru: Основатель и технический директор}
+  org: {en: Dateno, ru: Dateno}
+  summary:
+    en: A search engine for datasets built on the open registry of data catalogs.
+    ru: Поисковик по наборам данных на основе открытого реестра каталогов.
+
+- id: registry
+  order: 2
+  years: 2023–
+  title: {en: Creator of the registry of data catalogs, ru: Автор реестра каталогов данных}
+  org:
+    en: Common Data Index, later dataportals-registry
+    ru: Common Data Index, затем dataportals-registry
+
+- id: accounts-chamber
+  order: 3
+  years: 2019–2021
+  title: {en: Head of the open data project area, ru: Руководитель проектного направления «Открытые данные»}
+  org: {en: Accounts Chamber of Russia, ru: Счётная палата России}
+  summary:
+    en: Led the team that built the public spending portal spending.gov.ru.
+    ru: Руководил командой, которая сделала портал «Госрасходы» spending.gov.ru.
+
+- id: ruarxive
+  order: 4
+  years: 2017–
+  title: {en: Project lead, ru: Руководитель проекта}
+  org: {en: National Digital Archive (Infoculture), ru: Национальный цифровой архив (Инфокультура)}
+
+- id: infoculture
+  order: 5
+  years: 2012–
+  title: {en: Founder and director, ru: Основатель и директор}
+  org: {en: Infoculture NGO, ru: АНО «Информационная культура»}
+
+- id: apps4russia
+  order: 6
+  years: 2010–
+  title: {en: Co-founder, ru: Сооснователь}
+  org: {en: Apps4Russia contest, ru: Конкурс Apps4Russia}
+
+- id: opengovdata
+  order: 7
+  years: 2009–2015
+  title: {en: Founder, ru: Основатель}
+  org: {en: OpenGovData.ru, ru: «Государство и его информация» (opengovdata.ru)}
+  summary:
+    en: News and a knowledge base about open government data; archiving of government websites since 2009.
+    ru: Новости и база знаний об открытых государственных данных; с 2009 года — сохранение сайтов органов власти.
+
+- id: early
+  order: 8
+  years: 1999
+  title:
+    en: Unix system administrator, developer, head of a data mining lab
+    ru: Администратор Unix, разработчик, руководитель лаборатории интеллектуального анализа данных

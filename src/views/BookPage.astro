@@ -1,0 +1,192 @@
+---
+import type {CollectionEntry} from 'astro:content';
+import Base from '../layouts/Base.astro';
+import {type Lang, localePath, pick, t} from '../i18n';
+import {formatSize, remoteSize} from '../lib/filesize';
+import {book as bookSchema} from '../lib/schema';
+
+interface Props {
+  lang: Lang;
+  book: CollectionEntry<'books'>;
+}
+
+const {lang, book} = Astro.props;
+const b = book.data;
+const s = t(lang).books;
+const title = pick(b.title, lang);
+
+const files = await Promise.all(
+  b.files.map(async (f) => {
+    const bytes = await remoteSize(f.url);
+    return {...f, size: f.size ?? (bytes ? formatSize(bytes, lang) : undefined)};
+  }),
+);
+
+// The citation names the book in its own language: that is how it appears in libraries.
+const ownTitle = b.title[b.language];
+const ownSubtitle = b.subtitle[b.language];
+const author = b.language === 'ru' ? 'Бегтин И.' : 'Begtin, I.';
+const citation = `${author} ${ownTitle}: ${ownSubtitle.replace(/^./, (c) => c.toLowerCase())}. — ${b.year}. — URL: ${b.site}`;
+const bibtex = `@book{begtin${b.year}${book.id.replace(/[^a-z]/g, '')},
+  author = {${b.language === 'ru' ? 'Бегтин, Иван' : 'Begtin, Ivan'}},
+  title = {${ownTitle}: ${ownSubtitle}},
+  year = {${b.year}},
+  url = {${b.site}},
+  language = {${b.language === 'ru' ? 'russian' : 'english'}}${b.license ? `,\n  note = {${b.license.name}}` : ''}
+}`;
+
+const facts = [
+  {label: s.language, value: s.langNames[b.language]},
+  {label: s.edition, value: pick(b.edition, lang) ?? String(b.year)},
+  b.publisher && {label: s.publisher, value: pick(b.publisher, lang)},
+  b.license && {label: s.license, value: b.license.name, href: b.license.url},
+].filter((f): f is {label: string; value: string; href?: string} => Boolean(f));
+---
+
+<Base
+  lang={lang}
+  path={`/books/${book.id}/`}
+  title={title}
+  description={pick(b.summary, lang)}
+  image={b.cover}
+  type="book"
+  jsonLd={bookSchema(book, lang)}
+>
+  <article class="container">
+    <header class="page-head">
+      <p class="small"><a href={localePath(lang, '/books/')}>← {s.back}</a></p>
+      <h1>
+        {title}
+        {b.status === 'in-progress' && <span class="tag tag-accent">{s.status['in-progress']}</span>}
+      </h1>
+      <p>{pick(b.subtitle, lang)}</p>
+    </header>
+
+    {b.cover && <img class="cover" src={b.cover} alt="" width="1600" height="686" />}
+
+    <div class="layout">
+      <div class="prose">
+        <p>{pick(b.summary, lang)}</p>
+        <div class="actions">
+          <a class="button" href={b.site}>{s.readOnline}</a>
+          {
+            files.map((f) => (
+              <a class="button button-secondary" href={f.url} download>
+                {s.download} {f.format}
+                {f.size && <span class="size"> · {f.size}</span>}
+              </a>
+            ))
+          }
+        </div>
+
+        {
+          b.parts.length > 0 && (
+            <section class="section" aria-labelledby="contents">
+              <h2 id="contents">{s.contents}</h2>
+              <ol class="parts">
+                {b.parts.map((part) => (
+                  <li>{pick(part, lang)}</li>
+                ))}
+              </ol>
+            </section>
+          )
+        }
+
+        <section class="section" aria-labelledby="cite">
+          <h2 id="cite">{s.cite}</h2>
+          <p class="citation">{citation}</p>
+          <pre><code>{bibtex}</code></pre>
+        </section>
+      </div>
+
+      <aside>
+        <dl class="facts">
+          {
+            facts.map((f) => (
+              <div>
+                <dt>{f.label}</dt>
+                <dd>{f.href ? <a href={f.href}>{f.value}</a> : f.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        {b.repo && <p class="small"><a href={b.repo}>{s.source}</a></p>}
+      </aside>
+    </div>
+  </article>
+</Base>
+
+<style>
+  h1 .tag {
+    font-family: var(--font-sans);
+    margin-left: 0.5rem;
+  }
+
+  .cover {
+    width: 100%;
+    max-height: 22rem;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  @media (min-width: 900px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr) 16rem;
+      gap: 3rem;
+    }
+  }
+
+  .size {
+    font-weight: 400;
+  }
+
+  .parts {
+    padding-left: 1.6em;
+    list-style: upper-roman;
+  }
+
+  .parts li {
+    padding: 0.15rem 0;
+  }
+
+  .citation {
+    font-size: 0.95rem;
+  }
+
+  pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .facts {
+    margin: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .facts div {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .facts dt {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .facts dd {
+    margin: 0;
+  }
+</style>

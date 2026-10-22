@@ -1,0 +1,176 @@
+---
+import {getCollection} from 'astro:content';
+import Base from '../layouts/Base.astro';
+import BookCard from '../components/BookCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import PostList from '../components/PostList.astro';
+import {type Lang, localePath, t} from '../i18n';
+import {person} from '../lib/schema';
+
+interface Props {
+  lang: Lang;
+}
+
+const {lang} = Astro.props;
+const s = t(lang);
+const books = (await getCollection('books')).sort((a, b) => a.data.order - b.data.order);
+// The home page shows the current roles; the rest is on /projects/.
+const featured = ['dateno', 'dataportals-registry', 'infoculture', 'opendata-am', 'ruarxive', 'spending-gov'];
+const projects = (await getCollection('projects', (p) => featured.includes(p.id))).sort(
+  (a, b) => featured.indexOf(a.id) - featured.indexOf(b.id),
+);
+const numbers = [s.numbers.since, s.numbers.dateno, s.numbers.registry, s.numbers.telegram];
+---
+
+<Base lang={lang} path="/" type="profile" jsonLd={person(lang)}>
+  <section class="hero container">
+    <img
+      class="portrait"
+      src="/img/ivan-begtin.webp"
+      alt={s.home.portraitAlt}
+      width="640"
+      height="640"
+      fetchpriority="high"
+    />
+    <div>
+      <h1>{s.home.title}</h1>
+      <p class="tagline">{s.home.tagline}</p>
+      {s.home.lead.map((p) => <p set:html={p} />)}
+      <div class="actions">
+        <a class="button" href={localePath(lang, '/books/')}>{s.nav.books}</a>
+        <a class="button button-secondary" href="https://t.me/begtin">Telegram</a>
+        <a class="button button-secondary" href="https://begtin.substack.com/">Substack</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="numbers">
+    <h2 id="numbers" class="visually-hidden">{s.numbers.heading}</h2>
+    <dl class="numbers">
+      {
+        numbers.map((n) => (
+          <div class="number">
+            <dt>{n.label}</dt>
+            <dd>{n.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <p class="small muted">{s.numbers.asOf}</p>
+  </section>
+
+  <section class="section container" aria-labelledby="books">
+    <div class="section-head">
+      <h2 id="books">{s.home.booksHeading}</h2>
+      <a class="more" href={localePath(lang, '/books/')}>{s.home.booksAll}</a>
+    </div>
+    <div class="grid">
+      {books.map((book) => <BookCard lang={lang} book={book} />)}
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="projects">
+    <div class="section-head">
+      <h2 id="projects">{s.home.projectsHeading}</h2>
+      <a class="more" href={localePath(lang, '/projects/')}>{s.home.projectsAll}</a>
+    </div>
+    <div class="grid">
+      {projects.map((project) => <ProjectCard lang={lang} project={project} />)}
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="writing">
+    <div class="section-head">
+      <h2 id="writing">{s.home.writingHeading}</h2>
+      <a class="more" href={localePath(lang, '/writing/')}>{s.home.writingAll}</a>
+    </div>
+    <PostList lang={lang} limit={3} />
+  </section>
+
+  <section class="section container" aria-labelledby="contact">
+    <h2 id="contact">{s.home.contactHeading}</h2>
+    <p class="measure" set:html={s.home.contactText} />
+  </section>
+</Base>
+
+<style>
+  .hero {
+    display: grid;
+    gap: 1.5rem;
+    padding-top: 3rem;
+    align-items: start;
+  }
+
+  .portrait {
+    width: 9rem;
+    height: 9rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+  }
+
+  .hero h1 {
+    margin-bottom: 0.25rem;
+  }
+
+  .tagline {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero p {
+    max-width: var(--measure);
+  }
+
+  @media (min-width: 760px) {
+    .hero {
+      grid-template-columns: 12rem 1fr;
+      gap: 2.5rem;
+      padding-top: 4rem;
+    }
+
+    .portrait {
+      width: 12rem;
+      height: 12rem;
+    }
+  }
+
+  .numbers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .number {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    border-top: 2px solid var(--accent);
+    padding-top: 0.75rem;
+  }
+
+  .number dd {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .number dt {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>

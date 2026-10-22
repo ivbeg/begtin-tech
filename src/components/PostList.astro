@@ -1,0 +1,84 @@
+---
+import {type Lang, formatDate, t} from '../i18n';
+import {SUBSTACK_URL, getPosts} from '../lib/substack';
+
+interface Props {
+  lang: Lang;
+  limit?: number;
+}
+
+const {lang, limit = 5} = Astro.props;
+const s = t(lang).writing;
+const posts = (await getPosts()).slice(0, limit);
+---
+
+{
+  posts.length > 0 ? (
+    <ol class="posts">
+      {posts.map((post) => (
+        <li>
+          <time class="meta" datetime={post.date.toISOString()}>
+            {formatDate(post.date, lang)}
+          </time>
+          <h3>
+            <a href={post.url} lang={post.lang}>
+              {post.title}
+            </a>
+          </h3>
+          {post.excerpt && (
+            <p class="muted" lang={post.lang}>
+              {post.excerpt}
+            </p>
+          )}
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <p class="muted">
+      {s.feedUnavailable} <a href={SUBSTACK_URL}>begtin.substack.com</a>
+    </p>
+  )
+}
+
+<style>
+  .posts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: var(--measure);
+  }
+
+  .posts li {
+    padding: 1rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .posts li:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .posts time {
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .posts h3 {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .posts h3 a {
+    text-decoration: none;
+  }
+
+  .posts h3 a:hover {
+    text-decoration: underline;
+  }
+
+  .posts p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+</style>

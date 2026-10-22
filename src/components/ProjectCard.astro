@@ -1,0 +1,39 @@
+---
+import type {CollectionEntry} from 'astro:content';
+import {type Lang, pick, t} from '../i18n';
+
+interface Props {
+  lang: Lang;
+  project: CollectionEntry<'projects'>;
+}
+
+const {lang, project} = Astro.props;
+const p = project.data;
+const s = t(lang).projects;
+const meta = [pick(p.role, lang), p.years].filter(Boolean).join(' · ');
+---
+
+<article class="card" id={project.id}>
+  <h3>{p.url ? <a href={p.url}>{pick(p.name, lang)}</a> : pick(p.name, lang)}</h3>
+  {meta && <p class="meta">{meta}</p>}
+  <p>{pick(p.summary, lang)}</p>
+  {
+    (p.url || p.repo) && (
+      <div class="links">
+        {p.url && <a href={p.url}>{s.site}</a>}
+        {p.repo && <a href={p.repo}>{s.code}</a>}
+      </div>
+    )
+  }
+</article>
+
+<style>
+  h3 a {
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  h3 a:hover {
+    color: var(--accent);
+  }
+</style>
