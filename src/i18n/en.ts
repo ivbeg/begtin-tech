@@ -62,7 +62,7 @@ export const en = {
     timelineHeading: 'Career',
     bioHeading: 'Short bio',
     bioNote: 'For event organizers and publishers. Free to copy.',
-    bio: 'Ivan Begtin is the founder and CTO of Dateno, a search engine for datasets, the founder and director of the Infoculture NGO (Informational Culture) and a co-founder of Open Data Armenia. He has worked on open data and government transparency since 2009. In 2019–2021 he led the open data project area at the Accounts Chamber of Russia, where his team built the public spending portal spending.gov.ru. He maintains an open registry of more than 40,000 data catalogs worldwide, writes open-source tools for data engineering and digital preservation, and is the author of books on data catalogs and government transparency.',
+    bio: 'Ivan Begtin is the founder and CTO of Dateno, a search engine for datasets, the founder and director of the Infoculture NGO (Informational Culture) and a co-founder of Open Data Armenia. He has worked on open data and government transparency since 2009. In 2019–2021 he led the open data project area at the Accounts Chamber of Russia, where his team built the public spending portal spending.gov.ru. He maintains an open registry of more than 40,000 data catalogs worldwide, writes open-source tools for data engineering and digital preservation, and is the author of a book on data catalogs.',
     profilesHeading: 'Elsewhere',
   },
 
