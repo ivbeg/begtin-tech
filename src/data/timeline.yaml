@@ -1,61 +1,244 @@
 # Career on /about/, newest first (`order` ascending).
+# Sources: LinkedIn profile (October 2026) and the "About the author" chapter of the Data Catalogs book.
 
 - id: dateno
   order: 1
   years: 2024–
-  title: {en: Founder and CTO, ru: Основатель и технический директор}
-  org: {en: Dateno, ru: Dateno}
+  title:
+    en: Founder and CTO
+    ru: Основатель и технический директор
+  org:
+    en: Dateno
+    ru: Dateno
   summary:
     en: A search engine for datasets built on the open registry of data catalogs.
     ru: Поисковик по наборам данных на основе открытого реестра каталогов.
 
-- id: registry
+- id: opendata-am
   order: 2
   years: 2023–
-  title: {en: Creator of the registry of data catalogs, ru: Автор реестра каталогов данных}
+  title:
+    en: Co-founder and project leader
+    ru: Сооснователь и руководитель проекта
+  org:
+    en: Open Data Armenia
+    ru: Открытые данные Армении
+  summary:
+    en: Promoting open data in Armenia and in the global Armenian community.
+    ru: Продвижение открытых данных в Армении и в армянском сообществе по всему миру.
+
+- id: registry
+  order: 3
+  years: 2023–
+  title:
+    en: Creator of the registry of data catalogs
+    ru: Автор реестра каталогов данных
   org:
     en: Common Data Index, later dataportals-registry
     ru: Common Data Index, затем dataportals-registry
 
 - id: accounts-chamber
-  order: 3
+  order: 4
   years: 2019–2021
-  title: {en: Head of the open data project area, ru: Руководитель проектного направления «Открытые данные»}
-  org: {en: Accounts Chamber of Russia, ru: Счётная палата России}
+  title:
+    en: Deputy director, head of the Open Data team
+    ru: Заместитель директора, руководитель команды «Открытые данные»
+  org:
+    en: FKU CEAIT SP, a subordinate institution of the Accounts Chamber of Russia
+    ru: ФКУ ЦЭАИТ СП, подведомственное учреждение Счётной палаты России
   summary:
-    en: Led the team that built the public spending portal spending.gov.ru.
-    ru: Руководил командой, которая сделала портал «Госрасходы» spending.gov.ru.
+    en: Openness research and products on open data, including the public spending portal spending.gov.ru.
+    ru: Исследования открытости и продукты на открытых данных, в том числе портал «Госрасходы» spending.gov.ru.
+
+- id: aurd
+  order: 5
+  years: 2018–2022
+  title:
+    en: Director
+    ru: Директор
+  org:
+    en: Association of data market companies (aurd.ru)
+    ru: Ассоциация участников рынка данных (aurd.ru)
+
+- id: apicrafter
+  order: 6
+  years: 2018–
+  title:
+    en: Founder and CEO
+    ru: Основатель и генеральный директор
+  org:
+    en: APICrafter
+    ru: APICrafter
+  summary:
+    en: A data technology company focused on open-source software.
+    ru: Компания по технологиям работы с данными с упором на открытый код.
 
 - id: ruarxive
-  order: 4
+  order: 7
   years: 2017–
-  title: {en: Project lead, ru: Руководитель проекта}
-  org: {en: National Digital Archive (Infoculture), ru: Национальный цифровой архив (Инфокультура)}
+  title:
+    en: Project lead
+    ru: Руководитель проекта
+  org:
+    en: National Digital Archive (Infoculture)
+    ru: Национальный цифровой архив (Инфокультура)
+
+- id: opendata-council
+  order: 8
+  years: 2013–2018
+  title:
+    en: Member
+    ru: Член совета
+  org:
+    en: Open Data Council of the Open Government working group
+    ru: Совет по открытым данным при рабочей группе «Открытое правительство»
+  summary:
+    en: Open data research and advocacy.
+    ru: Исследования и продвижение открытых данных.
+
+- id: okfn
+  order: 9
+  years: 2013–
+  title:
+    en: Ambassador
+    ru: Амбассадор
+  org:
+    en: Open Knowledge Foundation Russia
+    ru: Open Knowledge Foundation Russia
+  summary:
+    en: A network of open data activists.
+    ru: Сеть активистов открытых данных.
 
 - id: infoculture
-  order: 5
+  order: 10
   years: 2012–
-  title: {en: Founder and director, ru: Основатель и директор}
-  org: {en: Infoculture NGO, ru: АНО «Информационная культура»}
+  title:
+    en: Founder and director
+    ru: Основатель и директор
+  org:
+    en: Infoculture NGO
+    ru: АНО «Информационная культура»
+  summary:
+    en: A non-profit for open government, digital preservation and information culture.
+    ru: Некоммерческая организация, которая занимается открытостью государства, цифровым сохранением и информационной культурой.
+
+- id: w3c
+  order: 11
+  years: 2011–2016
+  title:
+    en: Linked Data lead
+    ru: Руководитель направления Linked Data
+  org:
+    en: W3C Russia
+    ru: W3C Россия
+  summary:
+    en: Promoted open and linked data in Russia.
+    ru: Продвижение открытых и связанных данных в России.
 
 - id: apps4russia
-  order: 6
+  order: 12
   years: 2010–
-  title: {en: Co-founder, ru: Сооснователь}
-  org: {en: Apps4Russia contest, ru: Конкурс Apps4Russia}
+  title:
+    en: Co-founder
+    ru: Сооснователь
+  org:
+    en: Apps4Russia contest
+    ru: Конкурс Apps4Russia
+
+- id: odss
+  order: 13
+  years: 2009–2024
+  title:
+    en: CTO
+    ru: Технический директор
+  org:
+    en: ODSS (Datacoon)
+    ru: ODSS (Datacoon)
+  summary:
+    en: Open data, big data, data analysis and data engineering.
+    ru: Открытые данные, большие данные, анализ данных и инженерия данных.
 
 - id: opengovdata
-  order: 7
+  order: 14
   years: 2009–2015
-  title: {en: Founder, ru: Основатель}
-  org: {en: OpenGovData.ru, ru: «Государство и его информация» (opengovdata.ru)}
+  title:
+    en: Founder
+    ru: Основатель
+  org:
+    en: OpenGovData.ru
+    ru: «Государство и его информация» (opengovdata.ru)
   summary:
     en: News and a knowledge base about open government data; archiving of government websites since 2009.
     ru: Новости и база знаний об открытых государственных данных; с 2009 года — сохранение сайтов органов власти.
 
+- id: ets
+  order: 15
+  years: 2008–2009
+  title:
+    en: Account manager
+    ru: Менеджер по работе с клиентами
+  org:
+    en: Unified Trading Systems
+    ru: «Единые торговые системы»
+  summary:
+    en: E-government and research projects.
+    ru: Проекты электронного правительства и исследования.
+
+- id: enotpoiskun
+  order: 16
+  years: 2007–2010
+  title:
+    en: Owner, system architect and product manager
+    ru: Владелец, системный архитектор и менеджер продукта
+  org:
+    en: Enot Poiskun (enotpoiskun.ru)
+    ru: «Енот Поискун» (enotpoiskun.ru)
+  summary:
+    en: A search engine for public procurement.
+    ru: Поисковик по государственным закупкам.
+
+- id: compulink
+  order: 17
+  years: 2005–2007
+  title:
+    en: Senior architect, development group manager
+    ru: Ведущий архитектор, руководитель группы разработки
+  org:
+    en: Compulink
+    ru: «Компьюлинк»
+  summary:
+    en: Software and solution architecture, management of software and QA engineers, procurement systems.
+    ru: Архитектура программ и решений, руководство разработчиками и тестировщиками, системы закупок.
+
+- id: epam
+  order: 18
+  years: 2004–2005
+  title:
+    en: System architect
+    ru: Системный архитектор
+  org:
+    en: EPAM Systems
+    ru: EPAM Systems
+  summary:
+    en: C# development, system architecture and UML modelling, team lead.
+    ru: Разработка на C#, системная архитектура и моделирование на UML, руководство командой.
+
+- id: biolink
+  order: 19
+  years: 2000–2003
+  title:
+    en: Software developer
+    ru: Разработчик
+  org:
+    en: BioLink
+    ru: BioLink
+  summary:
+    en: Software and automated testing for Linux and Windows; fingerprint processing at the scale of millions, including an elections project in Nigeria.
+    ru: Программы и автоматизированное тестирование для Linux и Windows; обработка миллионов отпечатков пальцев, в том числе для выборов в Нигерии.
+
 - id: early
-  order: 8
+  order: 20
   years: 1999
   title:
-    en: Unix system administrator, developer, head of a data mining lab
-    ru: Администратор Unix, разработчик, руководитель лаборатории интеллектуального анализа данных
+    en: Unix system administrator
+    ru: Администратор Unix

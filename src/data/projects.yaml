@@ -73,22 +73,33 @@
   group: organizations
   order: 2
   name: {en: Open Data Armenia, ru: Открытые данные Армении}
-  role: {en: Co-founder, ru: Сооснователь}
+  role: {en: Co-founder and project leader, ru: Сооснователь и руководитель проекта}
+  years: 2023–
   url: https://opendata.am/
   summary:
-    en: A community project that collects and publishes open data about Armenia.
-    ru: Общественный проект, который собирает и публикует открытые данные об Армении.
+    en: >-
+      A community initiative that collects and publishes open data about Armenia and promotes
+      open data in Armenia and in the global Armenian community.
+    ru: >-
+      Общественная инициатива, которая собирает и публикует открытые данные об Армении и
+      продвигает открытые данные в Армении и в армянском сообществе по всему миру.
 
 - id: apicrafter
   group: organizations
   order: 3
   name: {en: APICrafter, ru: APICrafter}
-  role: {en: Founder, ru: Основатель}
+  role: {en: Founder and CEO, ru: Основатель и генеральный директор}
+  years: 2018–
   url: https://apicrafter.ru/
   repo: https://github.com/apicrafter
   summary:
-    en: Data APIs and tools for understanding data, including metacrafter for detecting what table columns contain.
-    ru: API к данным и инструменты для их разбора, в том числе metacrafter, который определяет, что лежит в колонках таблиц.
+    en: >-
+      A data technology company focused on open-source software: data APIs and tools for
+      understanding data, including metacrafter, which detects what table columns contain.
+    ru: >-
+      Компания по технологиям работы с данными с упором на открытый код: API к данным и
+      инструменты для их разбора, в том числе metacrafter, который определяет, что лежит в
+      колонках таблиц.
 
 # --- Open government and public spending ---
 
@@ -97,8 +108,8 @@
   order: 1
   name: {en: Public spending portal, ru: Портал «Госрасходы»}
   role:
-    en: Head of the open data project area, Accounts Chamber of Russia
-    ru: Руководитель проектного направления «Открытые данные» Счётной палаты России
+    en: Head of the Open Data team, Accounts Chamber of Russia
+    ru: Руководитель команды «Открытые данные» Счётной палаты России
   years: 2019–2021
   summary:
     en: >-
@@ -110,9 +121,19 @@
       через API. Команда из шести человек сделала портал за четыре с половиной месяца, его
       запустили в ноябре 2019 года.
 
-- id: clearspending
+- id: enotpoiskun
   group: government
   order: 2
+  name: {en: Enot Poiskun, ru: «Енот Поискун»}
+  role: {en: Owner and system architect, ru: Владелец и системный архитектор}
+  years: 2007–2010
+  summary:
+    en: A search engine for public procurement in Russia.
+    ru: Поисковик по государственным закупкам России.
+
+- id: clearspending
+  group: government
+  order: 3
   name: {en: Clearspending, ru: Госзатраты}
   url: https://clearspending.ru/
   summary:
@@ -121,7 +142,7 @@
 
 - id: hubofdata
   group: government
-  order: 3
+  order: 4
   name: {en: Hub of Open Data, ru: Хаб открытых данных}
   years: 2010–2011
   url: https://hubofdata.ru/
@@ -131,7 +152,7 @@
 
 - id: ngodata
   group: government
-  order: 4
+  order: 5
   name: {en: NGO Data, ru: Данные НКО}
   url: https://ngodata.ru/
   summary:
@@ -140,7 +161,7 @@
 
 - id: opengovdata
   group: government
-  order: 5
+  order: 6
   name: {en: OpenGovData.ru, ru: «Государство и его информация»}
   years: 2009–2015
   repo: https://github.com/ivbeg/opengovdataru
@@ -150,7 +171,7 @@
 
 - id: apps4russia
   group: government
-  order: 6
+  order: 7
   name: {en: Apps4Russia, ru: Apps4Russia}
   role: {en: Co-founder, ru: Сооснователь}
   years: 2010–
@@ -160,7 +181,7 @@
 
 - id: opendataday
   group: government
-  order: 7
+  order: 8
   name: {en: Open Data Day in Moscow, ru: День открытых данных в Москве}
   url: https://opendataday.ru/
   summary:

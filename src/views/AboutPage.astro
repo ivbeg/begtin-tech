@@ -49,6 +49,21 @@ const timeline = (await getCollection('timeline')).sort((a, b) => a.data.order -
       </ol>
     </section>
 
+    <div class="section facts">
+      <section aria-labelledby="awards">
+        <h2 id="awards">{s.about.awardsHeading}</h2>
+        <ul>
+          {s.about.awards.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+      <section aria-labelledby="languages">
+        <h2 id="languages">{s.about.languagesHeading}</h2>
+        <ul>
+          {s.about.languages.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+    </div>
+
     <section class="section" aria-labelledby="bio">
       <h2 id="bio">{s.about.bioHeading}</h2>
       <p class="small muted">{s.about.bioNote}</p>
@@ -127,6 +142,27 @@ const timeline = (await getCollection('timeline')).sort((a, b) => a.data.order -
 
   .org {
     color: var(--muted);
+  }
+
+  .facts {
+    display: grid;
+    gap: 2rem;
+    max-width: var(--measure);
+  }
+
+  .facts ul {
+    margin: 0;
+    padding-left: 1.2em;
+  }
+
+  .facts li {
+    padding: 0.15rem 0;
+  }
+
+  @media (min-width: 760px) {
+    .facts {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   .bio {
