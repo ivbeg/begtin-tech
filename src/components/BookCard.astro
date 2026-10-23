@@ -1,6 +1,7 @@
 ---
 import type {CollectionEntry} from 'astro:content';
 import {type Lang, localePath, pick, t} from '../i18n';
+import {editionLang, filesFor, siteFor} from '../lib/books';
 
 interface Props {
   lang: Lang;
@@ -11,7 +12,8 @@ const {lang, book} = Astro.props;
 const b = book.data;
 const s = t(lang).books;
 const page = localePath(lang, `/books/${book.id}/`);
-const pdf = b.files.find((f) => f.format === 'PDF');
+const edition = editionLang(b, lang);
+const pdf = filesFor(b, lang).find((f) => f.format === 'PDF' && f.lang === edition);
 ---
 
 <article class="card book-card">
@@ -20,8 +22,8 @@ const pdf = b.files.find((f) => f.format === 'PDF');
       b.cover ? (
         <img src={b.cover} alt="" width="1600" height="686" loading="lazy" decoding="async" />
       ) : (
-        <span class="cover-text" lang={b.language}>
-          {b.title[b.language]}
+        <span class="cover-text" lang={edition}>
+          {b.title[edition]}
         </span>
       )
     }
@@ -30,12 +32,12 @@ const pdf = b.files.find((f) => f.format === 'PDF');
     <p class="meta">
       {b.year}
       {b.status === 'in-progress' && <span class="tag tag-accent">{s.status['in-progress']}</span>}
-      {lang !== b.language && <span class="tag">{s.langNames[b.language]}</span>}
+      {edition !== lang && <span class="tag">{s.langNames[edition]}</span>}
     </p>
     <h3><a href={page}>{pick(b.title, lang)}</a></h3>
     <p class="muted">{pick(b.subtitle, lang)}</p>
     <div class="links">
-      <a href={b.site}>{s.readOnline}</a>
+      <a href={siteFor(b, lang)}>{s.readOnline}</a>
       {pdf && <a href={pdf.url}>PDF</a>}
     </div>
   </div>

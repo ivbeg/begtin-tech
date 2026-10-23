@@ -12,19 +12,22 @@ const books = defineCollection({
     title: text,
     subtitle: text,
     summary: text,
-    // Language of the book itself, not of the site page about it.
-    language: z.enum(['ru', 'en']),
+    // Languages the book itself exists in, the original first; not the languages of this site.
+    languages: z.array(z.enum(['ru', 'en'])).min(1),
     year: z.number(),
     edition: text.optional(),
     status: z.enum(['published', 'in-progress']),
     // Who published it, when the book is not a personal project.
     publisher: text.optional(),
     cover: z.string().optional(),
-    site: z.url(),
+    // The book's site for each language in `languages`.
+    site: z.object({ru: z.url().optional(), en: z.url().optional()}),
     repo: z.url().optional(),
     license: z.object({name: z.string(), url: z.url()}).optional(),
     files: z
-      .array(z.object({format: z.string(), url: z.url(), size: z.string().optional()}))
+      .array(
+        z.object({format: z.string(), lang: z.enum(['ru', 'en']), url: z.url(), size: z.string().optional()}),
+      )
       .default([]),
     parts: z.array(text).default([]),
   }),

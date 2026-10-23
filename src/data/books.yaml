@@ -1,6 +1,7 @@
 # Books shown on /books/. One entry per book; `id` becomes the page address /books/<id>/.
 # A new book: publish its site on <subdomain>.begtin.tech, then add an entry here.
-# Every text field has both `en` and `ru`: the English page describes Russian books too.
+# Every text field has both `en` and `ru`. `languages` lists the editions of the book itself
+# (original first); `site` and each file are given per edition language.
 
 - id: data-catalogs
   order: 1
@@ -23,21 +24,27 @@
       каталоги бывают и что они умеют, как выбрать функции и платформу и обосновать выбор, как
       публиковать данные — на портале или без него. Цифры книги посчитаны по открытому реестру
       более чем 43 тысяч каталогов.
-  language: ru
+  languages: [ru, en]
   year: 2026
   edition:
     en: October 2026
     ru: октябрь 2026
   status: published
   cover: /img/books/data-catalogs.webp
-  site: https://datacatalogs.begtin.tech/
+  site:
+    ru: https://datacatalogs.begtin.tech/
+    en: https://datacatalogs.begtin.tech/en/
   repo: https://github.com/ivbeg/data-catalogs-book
   license:
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
   files:
     - format: PDF
+      lang: ru
       url: https://datacatalogs.begtin.tech/data-catalogs-book.pdf
+    - format: PDF
+      lang: en
+      url: https://datacatalogs.begtin.tech/data-catalogs-book-en.pdf
   parts:
     - {en: What a data catalog is, ru: Что такое каталог данных}
     - {en: What data gets published, ru: Какие данные публикуют}

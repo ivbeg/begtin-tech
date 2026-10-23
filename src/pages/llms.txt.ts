@@ -19,9 +19,11 @@ export const GET: APIRoute = async () => {
     '## Books',
     '',
     ...books.map((b) => {
-      const pdf = b.data.files.find((f) => f.format === 'PDF');
-      const extra = pdf ? ` PDF: ${pdf.url}` : '';
-      return `- [${b.data.title.en} / ${b.data.title.ru}](${b.data.site}): ${b.data.subtitle.en}. In ${s.books.langNames[b.data.language]}, ${b.data.year}.${extra}`;
+      const editions = b.data.languages.map((l) => {
+        const pdf = b.data.files.find((f) => f.format === 'PDF' && f.lang === l);
+        return `${s.books.langNames[l]}: ${b.data.site[l]}${pdf ? `, PDF ${pdf.url}` : ''}`;
+      });
+      return `- ${b.data.title.en} / ${b.data.title.ru}: ${b.data.subtitle.en}. ${b.data.year}. ${editions.join('; ')}`;
     }),
     '',
     '## Projects',

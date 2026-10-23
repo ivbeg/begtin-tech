@@ -2,6 +2,7 @@
 import type {CollectionEntry} from 'astro:content';
 import Base from '../layouts/Base.astro';
 import {type Lang, localePath, pick, t} from '../i18n';
+import {editionLang, filesFor, otherEditions, siteFor} from '../lib/books';
 import {formatSize, remoteSize} from '../lib/filesize';
 import {book as bookSchema} from '../lib/schema';
 
@@ -14,34 +15,38 @@ const {lang, book} = Astro.props;
 const b = book.data;
 const s = t(lang).books;
 const title = pick(b.title, lang);
+const site = siteFor(b, lang);
+const edition = editionLang(b, lang);
+const multilingual = b.languages.length > 1;
 
 const files = await Promise.all(
-  b.files.map(async (f) => {
+  filesFor(b, lang).map(async (f) => {
     const bytes = await remoteSize(f.url);
     return {...f, size: f.size ?? (bytes ? formatSize(bytes, lang) : undefined)};
   }),
 );
 
 // The citation follows the page language: the English page gives an English reference
-// (APA-style) and says the book itself is in another language; the Russian page gives a GOST-style one.
+// (APA-style), the Russian page a GOST-style one. Both cite the edition in the page language
+// and say so only when the book has no such edition.
 const subtitle = pick(b.subtitle, lang);
-const edition = pick(b.edition, lang);
-const inOtherLanguage = b.language !== lang ? s.langNames[b.language] : undefined;
+const editionName = pick(b.edition, lang);
+const inOtherLanguage = edition !== lang ? s.langNames[edition] : undefined;
 const citation =
   lang === 'ru'
-    ? `Бегтин И. ${title}: ${subtitle.replace(/^./, (c) => c.toLowerCase())}. — ${edition ? `Редакция: ${edition}` : b.year}. — URL: ${b.site}`
-    : `Begtin, I. (${b.year}). ${title}: ${subtitle}${edition ? ` (${edition} ed.)` : ''}.${inOtherLanguage ? ` In ${inOtherLanguage}.` : ''} ${b.site}`;
+    ? `Бегтин И. ${title}: ${subtitle.replace(/^./, (c) => c.toLowerCase())}. — ${editionName ? `Редакция: ${editionName}` : b.year}. — URL: ${site}`
+    : `Begtin, I. (${b.year}). ${title}: ${subtitle}${editionName ? ` (${editionName} ed.)` : ''}.${inOtherLanguage ? ` In ${inOtherLanguage}.` : ''} ${site}`;
 const note = [lang === 'en' && inOtherLanguage && `In ${inOtherLanguage}`, b.license?.name].filter(Boolean).join('. ');
 const bibtex = `@book{begtin${b.year}${book.id.replace(/[^a-z]/g, '')},
   author = {${lang === 'ru' ? 'Бегтин, Иван' : 'Begtin, Ivan'}},
   title = {${title}: ${subtitle}},
-  year = {${b.year}},${edition ? `\n  edition = {${edition}},` : ''}
-  url = {${b.site}},
-  language = {${b.language === 'ru' ? 'russian' : 'english'}}${note ? `,\n  note = {${note}}` : ''}
+  year = {${b.year}},${editionName ? `\n  edition = {${editionName}},` : ''}
+  url = {${site}},
+  language = {${edition === 'ru' ? 'russian' : 'english'}}${note ? `,\n  note = {${note}}` : ''}
 }`;
 
 const facts = [
-  {label: s.language, value: s.langNames[b.language]},
+  {label: s.language, value: b.languages.map((l) => s.langNames[l]).join(', ')},
   {label: s.edition, value: pick(b.edition, lang) ?? String(b.year)},
   b.publisher && {label: s.publisher, value: pick(b.publisher, lang)},
   b.license && {label: s.license, value: b.license.name, href: b.license.url},
@@ -73,16 +78,26 @@ const facts = [
       <div class="prose">
         <p>{pick(b.summary, lang)}</p>
         <div class="actions">
-          <a class="button" href={b.site}>{s.readOnline}</a>
+          <a class="button" href={site}>{s.readOnline}</a>
           {
             files.map((f) => (
-              <a class="button button-secondary" href={f.url} download>
+              <a class="button button-secondary" href={f.url} hreflang={f.lang}>
                 {s.download} {f.format}
+                {multilingual && ` (${s.langNames[f.lang]})`}
                 {f.size && <span class="size"> · {f.size}</span>}
               </a>
             ))
           }
         </div>
+        {
+          otherEditions(b, lang).map((l) => (
+            <p class="small">
+              <a href={b.site[l]} hreflang={l}>
+                {s.readIn[l]}
+              </a>
+            </p>
+          ))
+        }
 
         {
           b.parts.length > 0 && (

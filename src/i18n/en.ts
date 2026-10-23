@@ -86,7 +86,7 @@ export const en = {
     title: 'Books',
     description: 'Books by Ivan Begtin: read online or download as PDF.',
     intro:
-      'My books are free to read online. Each book has its own site and, where available, a PDF edition. The books are written in Russian.',
+      'My books are free to read online. Each book has its own site and, where available, a PDF edition.',
     readOnline: 'Read online',
     download: 'Download',
     source: 'Source on GitHub',
@@ -97,6 +97,7 @@ export const en = {
     contents: 'Contents',
     status: {published: 'Published', 'in-progress': 'In progress'},
     langNames: {ru: 'Russian', en: 'English'},
+    readIn: {ru: 'Read in Russian', en: 'Read in English'},
     cite: 'How to cite',
     back: 'All books',
   },

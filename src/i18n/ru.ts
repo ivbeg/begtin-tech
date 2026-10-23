@@ -99,6 +99,7 @@ export const ru: typeof en = {
     contents: 'Содержание',
     status: {published: 'Опубликована', 'in-progress': 'В работе'},
     langNames: {ru: 'русский', en: 'английский'},
+    readIn: {ru: 'Читать на русском', en: 'Читать на английском'},
     cite: 'Как цитировать',
     back: 'Все книги',
   },

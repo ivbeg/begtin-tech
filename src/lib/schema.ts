@@ -1,6 +1,7 @@
 // schema.org markup: search engines and dataset/book indexes read it from every page.
 import type {CollectionEntry} from 'astro:content';
 import {type Lang, localePath, pick, t} from '../i18n';
+import {siteFor} from './books';
 import {EMAIL, profiles} from './profiles';
 
 const SITE = 'https://begtin.tech';
@@ -41,9 +42,9 @@ export function book(entry: CollectionEntry<'books'>, lang: Lang) {
     alternativeHeadline: pick(b.subtitle, lang),
     description: pick(b.summary, lang),
     author: {'@id': PERSON_ID, '@type': 'Person', name: t(lang).siteName},
-    inLanguage: b.language,
+    inLanguage: b.languages,
     datePublished: String(b.year),
-    url: b.site,
+    url: siteFor(b, lang),
     ...(b.cover && {image: `${SITE}${b.cover}`}),
     ...(b.license && {license: b.license.url}),
     ...(b.publisher && {publisher: {'@type': 'Organization', name: pick(b.publisher, lang)}}),
@@ -51,6 +52,7 @@ export function book(entry: CollectionEntry<'books'>, lang: Lang) {
       encoding: b.files.map((f) => ({
         '@type': 'MediaObject',
         encodingFormat: f.format === 'PDF' ? 'application/pdf' : f.format,
+        inLanguage: f.lang,
         contentUrl: f.url,
       })),
     }),
