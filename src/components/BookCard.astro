@@ -20,7 +20,7 @@ const pdf = filesFor(b, lang).find((f) => f.format === 'PDF' && f.lang === editi
   <a class="cover" href={page} tabindex="-1" aria-hidden="true">
     {
       b.cover ? (
-        <img src={b.cover} alt="" width="1600" height="686" loading="lazy" decoding="async" />
+        <img src={b.cover} alt="" width="1024" height="438" loading="lazy" decoding="async" />
       ) : (
         <span class="cover-text" lang={edition}>
           {b.title[edition]}
