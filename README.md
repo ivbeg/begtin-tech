@@ -39,5 +39,6 @@ Every text in the data files has both `en` and `ru`. The build fails if a field 
 | `begtin.tech` | AAAA | `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153` |
 | `www` | CNAME | `ivbeg.github.io` |
 | `datacatalogs` | CNAME | `ivbeg.github.io` |
+| `datainventory` | CNAME | `ivbeg.github.io` |
 
 All with the Cloudflare proxy off. Keep the MX and TXT records for Proton Mail as they are.
