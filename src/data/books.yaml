@@ -3,8 +3,61 @@
 # Every text field has both `en` and `ru`. `languages` lists the editions of the book itself
 # (original first); `site` and each file are given per edition language.
 
-- id: data-catalogs
+- id: data-inventory
   order: 1
+  title:
+    en: Data Inventory
+    ru: Инвентаризация данных
+  subtitle:
+    en: How to find out what data you have and find the data you are missing
+    ru: Как выяснить, какие данные у вас есть, и найти те, которых не хватает
+  summary:
+    en: >-
+      A book about data inventory: finding and describing data, that is, which datasets exist,
+      where they are kept, who owns them, on what grounds they are collected, whether they are
+      accessible and how good they are. It follows two approaches: taking stock of an
+      organization's own data and finding the data a task needs, including data held by others.
+      It covers the seven steps from a goal to a maintained data registry, where to look for
+      government, public and commercial data, description standards, tools and the practice of
+      twelve countries, with templates and checklists.
+    ru: >-
+      Книга об инвентаризации данных — выявлении и описании данных: какие наборы есть, где они
+      хранятся, кто ими владеет, на каком основании их собирают, доступны ли они и какого
+      качества. В ней два подхода: опись собственных данных организации и поиск данных под
+      задачу, в том числе у других. Книга проходит семь шагов от цели до реестра данных, который
+      поддерживают, рассказывает, где искать государственные, общественные и коммерческие данные,
+      о стандартах описания, инструментах и практике двенадцати стран, и даёт шаблоны и
+      чек-листы.
+  languages: [ru]
+  year: 2026
+  edition:
+    en: October 2026 draft
+    ru: черновик, октябрь 2026
+  status: in-progress
+  cover: /img/books/data-inventory.webp
+  site:
+    ru: https://datainventory.begtin.tech/
+  repo: https://github.com/ivbeg/data-inventory
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  files:
+    - format: PDF
+      lang: ru
+      url: https://datainventory.begtin.tech/data-inventory-book.pdf
+  parts:
+    - {en: What data inventory is, ru: Что такое инвентаризация данных}
+    - {en: Approaches and methods, ru: Подходы и методы}
+    - {en: How to run an inventory, ru: Как провести инвентаризацию}
+    - {en: Where to look for data, ru: Где искать данные}
+    - {en: Standards and international experience, ru: Стандарты и зарубежный опыт}
+    - {en: Tools, ru: Инструменты}
+    - {en: Country practices, ru: Страновые практики}
+    - {en: Practices, ru: Практики}
+    - {en: Appendices, ru: Приложения}
+
+- id: data-catalogs
+  order: 2
   title:
     en: Data Catalogs
     ru: Каталоги данных
